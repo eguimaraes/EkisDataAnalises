@@ -8,7 +8,7 @@ namespace WbData
 {
     internal class Country
     {
-
+        //teste
         public string Name { get; }
         public string Code { get; }
 
