@@ -7,7 +7,7 @@
       "RelativeMoniker": "D:0:0:{D105EB73-2D7B-4450-97EF-5A452E17C5E9}|WbData\\WbData.csproj|solutionrelative:wbdata\\indicadores.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D105EB73-2D7B-4450-97EF-5A452E17C5E9}|WbData\\WbData.csproj|e:\\ekisdataanalises\\wbdata\\wbdata\\country.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{D105EB73-2D7B-4450-97EF-5A452E17C5E9}|WbData\\WbData.csproj|E:\\EkisDataAnalises\\WbData\\wbdata\\country.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D105EB73-2D7B-4450-97EF-5A452E17C5E9}|WbData\\WbData.csproj|solutionrelative:wbdata\\country.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -30,8 +30,7 @@
               "RelativeToolTip": "WbData\\Country.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T23:00:00.655Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-30T23:00:00.655Z"
             },
             {
               "$type": "Document",
@@ -41,7 +40,7 @@
               "RelativeDocumentMoniker": "WbData\\Indicadores.cs",
               "ToolTip": "E:\\EkisDataAnalises\\WbData\\WbData\\Indicadores.cs",
               "RelativeToolTip": "WbData\\Indicadores.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFYAAABXAAAAAAAAAA==",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAQwFYAAABXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-30T21:45:34.292Z",
               "EditorCaption": ""
