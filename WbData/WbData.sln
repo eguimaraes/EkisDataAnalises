@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WbData", "WbData\WbData.csproj", "{D105EB73-2D7B-4450-97EF-5A452E17C5E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WbGDPNavigator", "WbGDPNavigator\WbGDPNavigator.csproj", "{261DFFA3-551D-4B63-AD27-BE8BCF0BE827}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D105EB73-2D7B-4450-97EF-5A452E17C5E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D105EB73-2D7B-4450-97EF-5A452E17C5E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D105EB73-2D7B-4450-97EF-5A452E17C5E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{261DFFA3-551D-4B63-AD27-BE8BCF0BE827}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{261DFFA3-551D-4B63-AD27-BE8BCF0BE827}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{261DFFA3-551D-4B63-AD27-BE8BCF0BE827}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{261DFFA3-551D-4B63-AD27-BE8BCF0BE827}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

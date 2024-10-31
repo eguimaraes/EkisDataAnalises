@@ -1,0 +1,9 @@
+E:\EkisDataAnalises\WbData\WbData\bin\Debug\WbData.dll
+E:\EkisDataAnalises\WbData\WbData\bin\Debug\WbData.pdb
+E:\EkisDataAnalises\WbData\WbData\bin\Debug\Newtonsoft.Json.dll
+E:\EkisDataAnalises\WbData\WbData\bin\Debug\Newtonsoft.Json.xml
+E:\EkisDataAnalises\WbData\WbData\obj\Debug\WbData.csproj.AssemblyReference.cache
+E:\EkisDataAnalises\WbData\WbData\obj\Debug\WbData.csproj.CoreCompileInputs.cache
+E:\EkisDataAnalises\WbData\WbData\obj\Debug\WbData.csproj.Up2Date
+E:\EkisDataAnalises\WbData\WbData\obj\Debug\WbData.dll
+E:\EkisDataAnalises\WbData\WbData\obj\Debug\WbData.pdb
