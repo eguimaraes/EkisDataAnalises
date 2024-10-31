@@ -109,6 +109,14 @@ namespace WbData
             }
         }
 
+        /*List<string> countries = new List<string> { "AR", "AU", "BR" };
+List<string> tables = new List<string> { "dbo.GDP_Data_Argentina", "dbo.GDP_Data_Australia", "dbo.GDP_Data_Brazil" };
+string viewName = "[dbo].[GDP_Join_Custom]";
+ViewBuilder builder = new ViewBuilder();
+builder.CreateGDPView(viewName, countries, tables);*/
+
+
+
         public DataTable GetData(string Country="*")
         {
             DataTable dataTable = new DataTable();
@@ -129,6 +137,89 @@ namespace WbData
                 
         return GetData();
         
+        }
+
+        public void CreateDatabase()
+        {
+            // Define the SQL script for database creation
+            string createDatabaseScript = @"
+            USE [master];
+            CREATE DATABASE [wb]
+             CONTAINMENT = NONE
+             ON PRIMARY 
+            ( NAME = N'wb', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\wb.mdf' , SIZE = 73728KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+             LOG ON 
+            ( NAME = N'wb_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\wb_log.ldf' , SIZE = 335872KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+             WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF;
+            
+            IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+            BEGIN
+                EXEC [wb].[dbo].[sp_fulltext_database] @action = 'enable';
+            END;
+            
+            ALTER DATABASE [wb] SET ANSI_NULL_DEFAULT OFF;
+            ALTER DATABASE [wb] SET ANSI_NULLS OFF;
+            ALTER DATABASE [wb] SET ANSI_PADDING OFF;
+            ALTER DATABASE [wb] SET ANSI_WARNINGS OFF;
+            ALTER DATABASE [wb] SET ARITHABORT OFF;
+            ALTER DATABASE [wb] SET AUTO_CLOSE OFF;
+            ALTER DATABASE [wb] SET AUTO_SHRINK OFF;
+            ALTER DATABASE [wb] SET AUTO_UPDATE_STATISTICS ON;
+            ALTER DATABASE [wb] SET CURSOR_CLOSE_ON_COMMIT OFF;
+            ALTER DATABASE [wb] SET CURSOR_DEFAULT GLOBAL;
+            ALTER DATABASE [wb] SET CONCAT_NULL_YIELDS_NULL OFF;
+            ALTER DATABASE [wb] SET NUMERIC_ROUNDABORT OFF;
+            ALTER DATABASE [wb] SET QUOTED_IDENTIFIER OFF;
+            ALTER DATABASE [wb] SET RECURSIVE_TRIGGERS OFF;
+            ALTER DATABASE [wb] SET DISABLE_BROKER;
+            ALTER DATABASE [wb] SET AUTO_UPDATE_STATISTICS_ASYNC OFF;
+            ALTER DATABASE [wb] SET DATE_CORRELATION_OPTIMIZATION OFF;
+            ALTER DATABASE [wb] SET TRUSTWORTHY OFF;
+            ALTER DATABASE [wb] SET ALLOW_SNAPSHOT_ISOLATION OFF;
+            ALTER DATABASE [wb] SET PARAMETERIZATION SIMPLE;
+            ALTER DATABASE [wb] SET READ_COMMITTED_SNAPSHOT OFF;
+            ALTER DATABASE [wb] SET HONOR_BROKER_PRIORITY OFF;
+            ALTER DATABASE [wb] SET RECOVERY FULL;
+            ALTER DATABASE [wb] SET MULTI_USER;
+            ALTER DATABASE [wb] SET PAGE_VERIFY CHECKSUM;
+            ALTER DATABASE [wb] SET DB_CHAINING OFF;
+            ALTER DATABASE [wb] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF );
+            ALTER DATABASE [wb] SET TARGET_RECOVERY_TIME = 60 SECONDS;
+            ALTER DATABASE [wb] SET DELAYED_DURABILITY = DISABLED;
+            ALTER DATABASE [wb] SET ACCELERATED_DATABASE_RECOVERY = OFF;
+            ALTER DATABASE [wb] SET QUERY_STORE = ON;
+            ALTER DATABASE [wb] SET QUERY_STORE (
+                OPERATION_MODE = READ_WRITE, 
+                CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), 
+                DATA_FLUSH_INTERVAL_SECONDS = 900, 
+                INTERVAL_LENGTH_MINUTES = 60, 
+                MAX_STORAGE_SIZE_MB = 1000, 
+                QUERY_CAPTURE_MODE = AUTO, 
+                SIZE_BASED_CLEANUP_MODE = AUTO, 
+                MAX_PLANS_PER_QUERY = 200, 
+                WAIT_STATS_CAPTURE_MODE = ON
+            );
+            ALTER DATABASE [wb] SET READ_WRITE;
+        ";
+
+            // Connection string to SQL Server (replace with your server details)
+            string connectionString = "Data Source=localhost;Initial Catalog=master;Integrated Security=True;";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(createDatabaseScript, connection);
+
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Database 'wb' created successfully.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error creating database: {ex.Message}");
+                }
+            }
         }
 
         public void setDataTable() { dataTable=GetData();}
