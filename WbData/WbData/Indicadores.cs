@@ -87,6 +87,8 @@ namespace WbData
                 string apiUrl = $"https://api.worldbank.org/v2/country/{selectedCountry}/indicator/NY.GDP.MKTP.CD?date={startYear}:{endYear}&format=json";
                 Console.WriteLine("Conectando no webService");
 
+                //teste
+
                 using (HttpClient client = new HttpClient())
                 {
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
