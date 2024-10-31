@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\WbData",
+    "\\WbData\\WbData"
   ],
-  "SelectedNode": "\\E:\\EkisDataAnalises",
+  "SelectedNode": "\\WbData\\WbData\\Indicadores.cs",
   "PreviewInSolutionExplorer": false
 }
