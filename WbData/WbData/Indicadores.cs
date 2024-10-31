@@ -16,6 +16,99 @@ namespace WbData
 
         public DataTable dataTable;
 
+        public void CreateGDPView(string viewName = "[dbo].[GDP_Join]")
+        {
+            string viewQuery = $@"
+            CREATE VIEW {viewName} AS
+            SELECT        dbo.Anos.Year, dbo.GDP_Data_Argentina.GDP AS AR, dbo.GDP_Data_Australia.GDP AS AU, 
+                          dbo.GDP_Data_Brazil.GDP AS BR, dbo.GDP_Data_Canada.GDP AS CA, dbo.GDP_Data_China.GDP AS CN, 
+                          dbo.GDP_Data_France.GDP AS FR, dbo.GDP_Data_Germany.GDP AS DE, dbo.GDP_Data_India.GDP AS [IN], 
+                          dbo.GDP_Data_Indonesia.GDP AS ID, dbo.GDP_Data_Italy.GDP AS IT, dbo.GDP_Data_Japan.GDP AS JP, 
+                          dbo.GDP_Data_Mexico.GDP AS MX, dbo.GDP_Data_Netherlands.GDP AS NL, dbo.GDP_Data_Saudi_Arabia.GDP AS SA, 
+                          dbo.GDP_Data_South_Korea.GDP AS KR, dbo.GDP_Data_Spain.GDP AS ES, dbo.GDP_Data_Switzerland.GDP AS CH, 
+                          dbo.GDP_Data_United_States.GDP AS US, dbo.GDP_Data_United_Kingdom.GDP AS GB, dbo.GDP_Data_Turkey.GDP AS TR
+            FROM            dbo.Anos 
+            INNER JOIN      dbo.GDP_Data_Argentina ON dbo.Anos.Year = dbo.GDP_Data_Argentina.Year 
+            INNER JOIN      dbo.GDP_Data_Australia ON dbo.Anos.Year = dbo.GDP_Data_Australia.Year 
+            INNER JOIN      dbo.GDP_Data_Brazil ON dbo.Anos.Year = dbo.GDP_Data_Brazil.Year 
+            INNER JOIN      dbo.GDP_Data_Canada ON dbo.Anos.Year = dbo.GDP_Data_Canada.Year 
+            INNER JOIN      dbo.GDP_Data_China ON dbo.Anos.Year = dbo.GDP_Data_China.Year 
+            INNER JOIN      dbo.GDP_Data_France ON dbo.Anos.Year = dbo.GDP_Data_France.Year 
+            INNER JOIN      dbo.GDP_Data_Germany ON dbo.Anos.Year = dbo.GDP_Data_Germany.Year 
+            INNER JOIN      dbo.GDP_Data_India ON dbo.Anos.Year = dbo.GDP_Data_India.Year 
+            INNER JOIN      dbo.GDP_Data_Indonesia ON dbo.Anos.Year = dbo.GDP_Data_Indonesia.Year 
+            INNER JOIN      dbo.GDP_Data_Italy ON dbo.Anos.Year = dbo.GDP_Data_Italy.Year 
+            INNER JOIN      dbo.GDP_Data_Japan ON dbo.Anos.Year = dbo.GDP_Data_Japan.Year 
+            INNER JOIN      dbo.GDP_Data_Mexico ON dbo.Anos.Year = dbo.GDP_Data_Mexico.Year 
+            INNER JOIN      dbo.GDP_Data_Netherlands ON dbo.Anos.Year = dbo.GDP_Data_Netherlands.Year 
+            INNER JOIN      dbo.GDP_Data_Saudi_Arabia ON dbo.Anos.Year = dbo.GDP_Data_Saudi_Arabia.Year 
+            INNER JOIN      dbo.GDP_Data_South_Korea ON dbo.Anos.Year = dbo.GDP_Data_South_Korea.Year 
+            INNER JOIN      dbo.GDP_Data_Spain ON dbo.Anos.Year = dbo.GDP_Data_Spain.Year 
+            INNER JOIN      dbo.GDP_Data_Switzerland ON dbo.Anos.Year = dbo.GDP_Data_Switzerland.Year 
+            INNER JOIN      dbo.GDP_Data_Turkey ON dbo.Anos.Year = dbo.GDP_Data_Turkey.Year 
+            INNER JOIN      dbo.GDP_Data_United_Kingdom ON dbo.Anos.Year = dbo.GDP_Data_United_Kingdom.Year 
+            INNER JOIN      dbo.GDP_Data_United_States ON dbo.Anos.Year = dbo.GDP_Data_United_States.Year";
+
+            using (SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=YourDatabase;Integrated Security=True;"))
+            {
+                SqlCommand command = new SqlCommand(viewQuery, connection);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    Console.WriteLine($"View '{viewName}' created successfully.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error creating view: {ex.Message}");
+                }
+            }
+        }
+
+        public void CreateGDPView(string viewName, List<string> countries, List<string> tables)
+        {
+            if (countries.Count != tables.Count)
+            {
+                throw new ArgumentException("Countries and tables lists must have the same number of elements.");
+            }
+
+            // Build the SELECT statement with country-specific GDP columns
+            StringBuilder selectClause = new StringBuilder("SELECT dbo.Anos.Year");
+            for (int i = 0; i < countries.Count; i++)
+            {
+                selectClause.Append($", {tables[i]}.GDP AS {countries[i]}");
+            }
+
+            // Build the FROM and JOIN statements based on the countries and tables
+            StringBuilder joinClause = new StringBuilder("FROM dbo.Anos");
+            for (int i = 0; i < countries.Count; i++)
+            {
+                joinClause.Append($" INNER JOIN {tables[i]} ON dbo.Anos.Year = {tables[i]}.Year");
+            }
+
+            // Combine all parts to form the final CREATE VIEW statement
+            string viewQuery = $@"
+            CREATE VIEW {viewName} AS
+            {selectClause}
+            {joinClause}";
+
+            // Connection to the SQL Server database
+            using (SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=YourDatabase;Integrated Security=True;"))
+            {
+                SqlCommand command = new SqlCommand(viewQuery, connection);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    Console.WriteLine($"View '{viewName}' created successfully.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error creating view: {ex.Message}");
+                }
+            }
+        }
+
         public DataTable GetData(string Country="*")
         {
             DataTable dataTable = new DataTable();
@@ -49,12 +142,15 @@ namespace WbData
 
         
         public void CriaViewJoin() {
-        
-        
-        
-        
-        
+
+
+            CreateGDPView();
+
+
         }
+
+
+
 
         public void CriaDB()
         {
