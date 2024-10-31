@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace WbData
 {
@@ -13,15 +14,58 @@ namespace WbData
     {
         public static string connectionString = "Data Source=localhost;Initial Catalog=wb;Integrated Security=True;";
 
-        public DataTable obtemDadadosGDP() { }
+        public DataTable dataTable;
 
-        public DataTable obtemDadadosGDP(string ContryCode) { }
+        public DataTable GetData(string Country="*")
+        {
+            DataTable dataTable = new DataTable();
+            
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = $@"SELECT {Country} FROM [wb].[dbo].[GDP_Join]";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    adapter.Fill(dataTable);
+                }
+            }
+            return dataTable;
+        }
 
-        public DataTable obtemDadadosGDP(string[] Countries) { }
+        public DataTable obtemDadadosGDP() {
+                
+        return GetData();
+        
+        }
 
-        public bool CriaTabela(string crountryCode) { }
+        public void setDataTable() { dataTable=GetData();}
 
-      static async Task CriaBancoDedados(string selectedCountry)
+        public DataTable obtemDadadosGDP(string CountryCode) {
+              
+        
+        return GetData(CountryCode);
+        
+        }
+
+        
+        public void CriaViewJoin() {
+        
+        
+        
+        
+        
+        }
+
+        public void CriaDB()
+        {
+
+
+
+
+
+        }
+
+        static async Task CriaTabela(string selectedCountry)
         {
            
             var countries = new List<Country>
@@ -59,14 +103,14 @@ namespace WbData
             {
                 connection.Open();
 
-            string tableName = $"GDP_Data_{selectedCountry.Name.Replace(" ", "_")}";
+            string tableName = $"GDP_Data_{selectedCountry}";
 
                 // Drop existing table
                 string dropTableQuery = $"IF OBJECT_ID('{tableName}', 'U') IS NOT NULL DROP TABLE {tableName};";
                 using (SqlCommand dropCommand = new SqlCommand(dropTableQuery, connection))
                 {
                     dropCommand.ExecuteNonQuery();
-                    Console.WriteLine($"Tabela '{tableName}' removida com sucesso.");
+                   
                 }
 
                 // Create new table
@@ -80,12 +124,12 @@ namespace WbData
                 using (SqlCommand createCommand = new SqlCommand(createTableQuery, connection))
                 {
                     createCommand.ExecuteNonQuery();
-                    Console.WriteLine($"Tabela '{tableName}' criada com sucesso.");
+                   
                 }
 
                 // Get GDP data from World Bank API
                 string apiUrl = $"https://api.worldbank.org/v2/country/{selectedCountry}/indicator/NY.GDP.MKTP.CD?date={startYear}:{endYear}&format=json";
-                Console.WriteLine("Conectando no webService");
+              
 
                 //teste
 
@@ -96,7 +140,7 @@ namespace WbData
                     {
                         string jsonResponse = await response.Content.ReadAsStringAsync();
                         JArray jsonData = JArray.Parse(jsonResponse);
-                        Console.WriteLine("Carregando os Dados");
+                       
 
                         foreach (var item in jsonData[1])
                         {
